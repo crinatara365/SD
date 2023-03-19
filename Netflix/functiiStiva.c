@@ -3,7 +3,7 @@
 #include "TStiva.h"
 
 /* creeaza stiva vida cu elemente de dimensiune d */
-void *InitS(size_t d) //ok      
+void *InitS(size_t d)       
 {
 	ASt s;
 	s = (ASt)malloc(sizeof(TStiva));
@@ -35,5 +35,3 @@ int Pop(void *s, void *ae) //ok
 	free(aux);
 	return 1;
 }
-
-
