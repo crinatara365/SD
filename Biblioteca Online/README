@@ -1,0 +1,26 @@
+Tararache Crina-Andreea, grupa 314CB
+Punctaj teste: 110 puncte
+
+main.c: -se citesc liniile de comenzi din fisierul de intrare si in functie de comanda se intra pe if-ul corespunzator.
+
+-add_book: se sparge in bucati stringul dat si se completeaza campurile structurii unei carti. Se insereaza cartea data in arborele de carti, dandu-se ca parametru pointer-ul ce contine 
+informatiile cartii pentru a fi atribuit leaf-ului din arbore (Insert_1(head_1, carte->titlu, carte)), apoi se adauga verifica daca autorul cartii date se afla deja in arborele de autori 
+sau nu (if(search_2(head_2, carte->autor) == NULL)). Daca exista, se adauga cartea in arborele de carti scrise de autorul dat; daca nu, se creeaza un arbore gol (struct Trie_1* head_3 = 
+Nod_nou_1()), se adauga cartea in el (Insert_1(head_3, carte->titlu, carte)) si la final se adauga si autorul in arborele de autori, dandu-se ca parametru pointer-ul catre aborele cartilor
+scrise de autorul respectiv.
+
+-search_book: primul lucru, se elimina spatiul de la finalul sirului de caractere, apoi se verifica daca cautarea cartii se face dupa titlu sau dupa prefix (adica daca siryl dat are caracterul
+"~" la final). Daca se cauta dupa titlu, se apeleaza functia search_1 (returneaza NULL daca cartea nu exista sau pointerul catre structura cartii daca ea exista, si in final mesajele aferente)
+Daca cautarea se face dupa prefix (if(strchr(s, '~') != 0)), se elimina "~" de la finalul sirului (s = strtok(s, "~")) si se apeleaza functia display_by_prefix_book (cauta in arborele head_1, 
+adica cel de carti, prefixul q si afiseaza primele 3 carti in ordine lexicografica ce contin prefixul dat; daca contorul nu a crescut inseamna ca nu s-a facut nicio afisare si atunci se afiseaza
+mesajul corespunzator).
+
+-list_author: similar cu comanda search_book: daca se cauta dupa numele autorului, se apeleaza search_2 (diferenta intre search_1 si search_2 este ca prima cauta intr-un arbore Trie_1, adica de 
+carti, iar a doua intr-unul de tip Trie_2, de autori; diferenta intre aceste 2 structuri de trie este ca la primul Leaf este o variabila de tip TCarte care retine informatiile unei carti, iar la
+celalalt este de tip Trie_1 pentru ca retine arborele de carti specific fiecarui autor). Daca pointerul returnat este diferit de NULL, atunci se apeleaza functia display pentru a afisa toate 
+cartile scrise de autorul respectiv. Daca cautarea se face dupa prefixul numelui autorului, se apeleaza display_by_prefix_author care are mod de functionare similar cu display_by_prefix_book.
+
+-search_by_author: daca argumentul primit este de tipul <autor>:<titlu> (adica nu are "~" la final) se cauta autorul in head_2, daca pointerul returnat e diferit de NULL inseamna ca este pointerul
+catre arborele de carti si atunci se cauta cartea in arbore, daca pointerul intors este diferit de NULL atunci el indica catre structura cu informatiile cartii, care sunt in cele din urma afisate.
+Daca sirul dat contine "~" la final el este ori de forma <prefix_autor> sau <autor:titlu> si atunci se verifica daca contine ":". Daca da, se procedeaza similar ca anterior; daca nu, se apeleaza
+display_by_prefix_author.
