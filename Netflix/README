@@ -18,7 +18,7 @@ gaseste, il adauga in coada watch_later si il elimina din lista data. Functia re
 Se citeste id-ul categoriei care trebuie afisata. In functie de acesta se apeleaza functia de afisare fie pentru lista (Afisare) (pentru id = 1, 2, 3), fie pentru 
 coada (Afisare_coada) (pentru id = top10), functii care la randul lor apeleaza functia de afisare pentru un singur element (AfisElem).
 
--a add_top: 
+- add_top: 
 Este similara cu functia add, singura diferenta reprezentand inserarea serialului in lista generica. Astfel, se apeleaza functia Ins_sort care insereaza serialul dat in 
 lista Top10 in functie de pozitia citita. daca pozitie este egala cu 1, se apeleaza functia de inserare la inceput in lista generica. Daca pozitia este mai mare decat 
 lungimea listei, atunci se insereaza la sfarsit. Altfel, se insereaza in interiorul listei. La final, dupa apelarea functiei, daca lungimea listei este mai mare decat 10,
