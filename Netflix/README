@@ -1,21 +1,25 @@
-Tararache Crina-Andreea, grupa 314CB
-Punctaj pe checker-ul local: 87 puncte
+Tararache Crina-Andreea, 314CB
 
-In primul rand, liniile de comenzi sunt citite cu functia fscanf. In functie de comanda citita, programul intra pe if-ul aferent si citeste in continuare toate argumentele primite.
+Comenzi sunt citite cu functia fscanf. In functie de comanda citita, programul intra pe if-ul aferent si citeste in continuare toate argumentele primite.
 
-Implementare functia add: se aloca memorie pentru structura unui serial si se completeaza campurile corespunzatoare cu datele citite din fisierul de input; se initializeaza coada de
-sezoane. In continuare, pentru fiecare sezon citit, se aloca si se completeaza campurile unui sezon; se initializeaza coada de episoade. Astfel, pentru fiecare episod se introduce in 
-coada de episoade durata aferenta. Odata ce s-au terminat episoadele citite, se introduce in coada de sezoane din structura unui serial, variabila de tip sezon cu campurile: numarul de 
-episoade si coada de episoade. Ultimul pas, in functie de id-ul citit, variabila de tip serial se introduce in lista generica simplu inlantuita. Initial se apeleaza functia InsLG care 
-insereaza serialul la inceput de lista si ulterior se apeleaza functia SortLG care sorteaza lista data in functie de rating, si in caz de egalitate, dupa nume.
+- add: 
+Se aloca memorie pentru structura unui serial si se completeaza campurile corespunzatoare cu datele citite din fisierul de input; se initializeaza coada de sezoane. In 
+continuare, pentru fiecare sezon citit, se aloca si se completeaza campurile unui sezon; se initializeaza coada de episoade. Astfel, pentru fiecare episod se introduce
+in coada de episoade durata aferenta. Odata ce s-au terminat episoadele citite, se introduce in coada de sezoane din structura unui serial, variabila de tip sezon cu 
+campurile: numarul de episoade si coada de episoade. Ultimul pas, in functie de id-ul citit, variabila de tip serial se introduce in lista generica simplu inlantuita.
+Initial se apeleaza functia InsLG care insereaza serialul la inceput de lista si ulterior se apeleaza functia SortLG care sorteaza lista data in functie de rating, si in 
+caz de egalitate, dupa nume.
 
-Implementare functia later: se citeste numele serialului dat in fisierul de input. Se apeleaza functia Cauta_si_elimina care cauta serialul dat ca parametru in lista generica si, in cazul
-in care il gaseste, il adauga in coada watch_later si il elimina din lista data. Functia returneaza 1 daca s-a realizat operatia, 0 altfel. 
+- later: 
+Se citeste numele serialului dat in fisierul de input. Se apeleaza functia Cauta_si_elimina care cauta serialul dat ca parametru in lista generica si, in cazul in care il
+gaseste, il adauga in coada watch_later si il elimina din lista data. Functia returneaza 1 daca s-a realizat operatia, 0 altfel. 
 
-Implementare functia show: se citeste id-ul categoriei care trebuie afisata. In functie de acesta se apeleaza functia de afisare fie pentru lista (Afisare) (pentru id = 1, 2, 3), fie pentru 
+- show: 
+Se citeste id-ul categoriei care trebuie afisata. In functie de acesta se apeleaza functia de afisare fie pentru lista (Afisare) (pentru id = 1, 2, 3), fie pentru 
 coada (Afisare_coada) (pentru id = top10), functii care la randul lor apeleaza functia de afisare pentru un singur element (AfisElem).
 
-Implementare functia add_top: este similara cu functia add, singura diferenta reprezentand inserarea serialului in lista generica. Astfel, se apeleaza functia Ins_sort care insereaza serialul
-dat in lista Top10 in functie de pozitia citita. daca pozitie este egala cu 1, se apeleaza functia de inserare la inceput in lista generica. Daca pozitia este mai mare decat lungimea listei,
-atunci se insereaza la sfarsit. Altfel, se insereaza in interiorul listei. La final, dupa apelarea functiei, daca lungimea listei este mai mare decat 10, se sterge ultimul element din lista 
-(EliminaLG).
+-a add_top: 
+Este similara cu functia add, singura diferenta reprezentand inserarea serialului in lista generica. Astfel, se apeleaza functia Ins_sort care insereaza serialul dat in 
+lista Top10 in functie de pozitia citita. daca pozitie este egala cu 1, se apeleaza functia de inserare la inceput in lista generica. Daca pozitia este mai mare decat 
+lungimea listei, atunci se insereaza la sfarsit. Altfel, se insereaza in interiorul listei. La final, dupa apelarea functiei, daca lungimea listei este mai mare decat 10,
+se sterge ultimul element din lista (EliminaLG)
