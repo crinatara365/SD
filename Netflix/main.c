@@ -9,9 +9,9 @@
 /* structura unui serial */
 typedef struct
 { 
-	int ID; //ID-ul serialului
-	char *nume; // numele serialului
-	float rating; //ratingul serialului
+	int ID; 
+	char *nume; 
+	float rating; 
 	int nr_sezoane;
 	TCoada* coada_sezoane;
 }TSerial; 
@@ -33,7 +33,8 @@ void AfisElem(void* p, FILE* out)
 /* functie de sortare a serialelor in lista */
 int SortLG(TLG* l) 
 {
-	if((*l)->urm == NULL) //daca avem un singur element in lista
+	/* daca avem un singur element in lista */
+	if((*l)->urm == NULL) 
 	{
 		return 0;
 	}
@@ -100,13 +101,13 @@ int Cauta_si_elimina(TLG* l, void* elem, void* coada)
 		TSerial* p = (TSerial*)(a->info);
 		if(strcmp(p->nume, elem) == 0)
 		{
-			contor++; //l-a gasit
+			contor++; 
 			break;
 		}	
 		else
 			pozitie++;
 	}
-	if(contor == 0) //nu l-a gasit
+	if(contor == 0) 
 		return 0;
 	if(contor != 0) 
 	{
@@ -142,17 +143,20 @@ int Ins_sort(TLG *l, void *p, int pozitie)
 	int lungime = LungimeLG(l);
 	int contor = 2;
 
-	if (pozitie == 1) //inserez la inceput de lista
+	/* inserare la inceput de lista */
+	if (pozitie == 1) 
 	{
 		InsLG(&(*l), p);
 		return 1;
 	}
-	if(pozitie > lungime) //inserez la sfarsit
+	/* inserare la sfarsit */
+	if(pozitie > lungime) 
 	{
 		InsSF((*l), p);
 		return 1;
 	}
-	for (a = ant->urm; a != NULL; a = a->urm, ant = ant->urm) //ant este prima celula, a este a doua
+	/* ant este prima celula, a este a doua */
+	for (a = ant->urm; a != NULL; a = a->urm, ant = ant->urm) 
 	{
 		if (contor == pozitie)
 		{
@@ -192,7 +196,7 @@ int main(int arg, char* argv[])
 
 	TCoada *watch_later = InitQ(sizeof(TSerial));
 
-	while(fscanf(in, "%s", comanda) == 1) //atata timp cat citeste linii cu comenzi
+	while(fscanf(in, "%s", comanda) == 1) 
 	{
 		char s1[] = "add", s2[] = "show", s3[] = "later";
 		if(strcmp(comanda, s1) == 0) //add
@@ -200,43 +204,49 @@ int main(int arg, char* argv[])
 			
 			fscanf(in, "%d %s %f %d", &ID, nume, &rating, &nrSez);
 			TSerial* p = (TSerial*)malloc(sizeof(TSerial));
-			if(!p) return 0; //nu s-a reusit alocarea serialului
+			if(!p) return 0; 
 			p->ID = ID;
 			p->nume = malloc(33);
 			strcpy(p->nume, nume);
 			p->rating = rating;
 			p->nr_sezoane = nrSez;
-			p->coada_sezoane = InitQ(sizeof(TSezon)); //initializare coada de seriale
+			p->coada_sezoane = InitQ(sizeof(TSezon)); 
 			int i, j;
-			for(i = 1; i <= p->nr_sezoane; i++) //atata timp cat sunt sezoane
+			/* atata timp cat sunt sezoane */
+			for(i = 1; i <= p->nr_sezoane; i++) 
 			{
-				fscanf(in, "%d", &nrEp); //citesc cate episoade are fiecare sezon
+				/* citire cate episoade are fiecare sezon */
+				fscanf(in, "%d", &nrEp); 
 				TSezon* q = (TSezon*) malloc(sizeof(TSezon));
-				if(!q) return 0; //nu s-a reusit alocarea sezonului
+				if(!q) return 0; 
 
 				q->nr_episoade = nrEp;
-				q->coada_episoade = InitQ(sizeof(int)); //initializare coada de episoade
+				/* initializare coada de episoade */
+				q->coada_episoade = InitQ(sizeof(int)); 
 
-				for(j = 1; j <= q->nr_episoade; j++) //atata timp cat sunt episoade
+				/* atata timp cat sunt episoade */
+				for(j = 1; j <= q->nr_episoade; j++) 
 				{
-					fscanf(in, "%d", &durata); //citesc cate minute are fiecare episod
+					/* citire cate minute are fiecare episod */
+					fscanf(in, "%d", &durata); 
 
 					/* INSERARE IN COADA DE EPISOADE */
-					if(IC(q->coada_episoade) == NULL) //inserez in coada vida de episoade
+					if(IC(q->coada_episoade) == NULL) 
 						InsQ_vida(q->coada_episoade, (void *)&durata);
 					else
 						InsQ_nevida(q->coada_episoade, (void *)&durata);
 				}
 		
 				/*INSERARE IN COADA DE SEZOANE */
-				if(IC(p->coada_sezoane) == NULL) //inserez in coada vida de sezoane
+				if(IC(p->coada_sezoane) == NULL) 
 					InsQ_vida(p->coada_sezoane, (void *)q);
 				else //insere in coada nevida
 					InsQ_nevida(p->coada_sezoane, (void *)q);
 			}
 
 			/* INSERARE IN LISTA DE SERIALE */
-			if(ID == 1) //inserez in lista Tendinte
+			/* inserare in lista Tendinte */
+			if(ID == 1) 
 			{
 				InsLG(&Tendinte, (void *)p);
 				fprintf(out, "Serialul %s a fost adaugat la pozitia ", p->nume);
@@ -245,7 +255,8 @@ int main(int arg, char* argv[])
 				SortLG(&Tendinte);
 				fprintf(out, "%d.\n", indice(Tendinte, (void *)aux));
 			}
-			if(ID == 2) //inserez in lista Documentare
+			 /* inserare in lista Documentare */
+			if(ID == 2)
 			{
 				InsLG(&Documentare, (void *)p);
 				fprintf(out, "Serialul %s a fost adaugat la pozitia ", p->nume);
@@ -254,7 +265,8 @@ int main(int arg, char* argv[])
 				SortLG(&Documentare);
 				fprintf(out, "%d.\n", indice(Documentare, (void *)aux));
 			}
-			if(ID == 3) //inserez in lista Tutoriale
+			/* inserare in lista Tutoriale */
+			if(ID == 3) 
 			{
 				InsLG(&Tutoriale, (void *)p);
 				fprintf(out,"Serialul %s a fost adaugat la pozitia ", p->nume);
@@ -265,7 +277,8 @@ int main(int arg, char* argv[])
 			}
 		}
 	 
-		if(strcmp(comanda, s3) == 0) //later
+		/* Later */
+		if(strcmp(comanda, s3) == 0) 
 		{
 			fscanf(in, "%s", nume);
 
@@ -274,14 +287,15 @@ int main(int arg, char* argv[])
 			int l3 = Cauta_si_elimina(&Tutoriale, (void *)nume, watch_later);
 			int l4 = Cauta_si_elimina(&Top10, (void *)nume, watch_later);
 
-			if(l1 != 0 || l2 != 0 || l3 != 0 || l4 != 0) //daca am gasit serialul in vreuna dintre liste
+			if(l1 != 0 || l2 != 0 || l3 != 0 || l4 != 0) 
 			{
 				fprintf(out, "Serialul %s se afla in coada de asteptare pe pozitia %d.\n", nume, Indice);
 				Indice++;
 			}
 		} 
 
-		if(strcmp(comanda, s2) == 0) //show
+		/* Show */
+		if(strcmp(comanda, s2) == 0) 
 		{
 			char *id = malloc(20);
 			fscanf(in, "%s", id);
@@ -312,47 +326,46 @@ int main(int arg, char* argv[])
 			}
 		} 
 
-		if(strcmp(comanda, "add_top") == 0) //add_top
+		/* add_top */
+		if(strcmp(comanda, "add_top") == 0) 
 		{
 			fscanf(in, "%d %s %f %d", &pozitia, nume, &rating, &nrSez);
 			TSerial* p = (TSerial*)malloc(sizeof(TSerial));
-			if(!p) return 0; //nu s-a reusit alocarea serialului
+			if(!p) return 0; 
 			p->ID = pozitia;
 			p->nume = malloc(33);
 			strcpy(p->nume, nume);
 			p->rating = rating;
 			p->nr_sezoane = nrSez;
-			p->coada_sezoane = InitQ(sizeof(TSezon)); //initializare coada de seriale
+			p->coada_sezoane = InitQ(sizeof(TSezon)); 
 			int i, j;
-			for(i = 1; i <= p->nr_sezoane; i++) //atata timp cat sunt sezoane
+			for(i = 1; i <= p->nr_sezoane; i++) 
 			{
-				fscanf(in, "%d", &nrEp); //citesc cate episoade are fiecare sezon
+				fscanf(in, "%d", &nrEp); 
 				TSezon* q = (TSezon*) malloc(sizeof(TSezon));
-				if(!q) return 0; //nu s-a reusit alocarea sezonului
+				if(!q) return 0; 
 
 				q->nr_episoade = nrEp;
-				q->coada_episoade = InitQ(sizeof(int)); //initializare coada de episoade
+				q->coada_episoade = InitQ(sizeof(int)); 
 
-				for(j = 1; j <= q->nr_episoade; j++) //atata timp cat sunt episoade
+				for(j = 1; j <= q->nr_episoade; j++) 
 				{
-					fscanf(in, "%d", &durata); //citesc cate minute are fiecare episod
-
+					fscanf(in, "%d", &durata); 
 					/* INSERARE IN COADA DE EPISOADE */
-					if(IC(q->coada_episoade) == NULL) //inserez in coada vida de episoade
+					if(IC(q->coada_episoade) == NULL) 
 						InsQ_vida(q->coada_episoade, (void *)&durata);
 					else
 						InsQ_nevida(q->coada_episoade, (void *)&durata);
 				}
 		
 				/*INSERARE IN COADA DE SEZOANE */
-				if(IC(p->coada_sezoane) == NULL) //inserez in coada vida de sezoane
+				if(IC(p->coada_sezoane) == NULL)
 					InsQ_vida(p->coada_sezoane, (void *)q);
 				else //insere in coada nevida
 					InsQ_nevida(p->coada_sezoane, (void *)q);
 			}
 
 			/* INSERARE IN LISTA top10 */
-
 			Ins_sort(&Top10, (void *)p, pozitia);
 			
 			if(LungimeLG(&Top10) > 10)
