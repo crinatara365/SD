@@ -9,14 +9,16 @@
 int main(int arg, char* argv[])
 {
     FILE* in;
-	FILE* out;
-	in = fopen(argv[1], "r");
-	if(in == NULL) return 0;
-	out = fopen(argv[2], "w");
-	if(out == NULL) return 0;
+    FILE* out;
+    in = fopen(argv[1], "r");
+    if(in == NULL) return 0;
+    out = fopen(argv[2], "w");
+    if(out == NULL) return 0;
 
-    struct Trie_1* head_1 = Nod_nou_1(); /* trie ce contine cartile */
-    struct Trie_2* head_2 = Nod_nou_2(); /* trie ce contine autorii */
+    /* trie ce contine cartile */
+    struct Trie_1* head_1 = Nod_nou_1(); 
+    /* trie ce contine autorii */
+    struct Trie_2* head_2 = Nod_nou_2(); 
 
     char *buffer;
     size_t bufsize = 32;
@@ -43,7 +45,7 @@ int main(int arg, char* argv[])
             s = strtok(NULL, ":");
             carte->titlu = malloc(100);
             if(!carte->titlu) return 0;
-		    strcpy(carte->titlu, s);
+		strcpy(carte->titlu, s);
             s = strtok(NULL, ":");
             carte->autor = malloc(100);
             if(!carte->autor) return 0;
@@ -69,7 +71,7 @@ int main(int arg, char* argv[])
             } 
         }  
 
-        if(strcmp(p, "search_book") == 0) //search_book <titlu> sau search_book <prefix_titlu>
+        if(strcmp(p, "search_book") == 0) 
         {
             char *s = malloc(200);
             if(!s) return 0;
@@ -82,7 +84,8 @@ int main(int arg, char* argv[])
             if(s[strlen(s) - 1] == '\r')
                 s[strlen(s) - 1] = '\0';
 
-            if(strchr(s, '~') != 0) //caut dupa prefix
+	    /* caut dupa prefix */
+            if(strchr(s, '~') != 0) 
             {
                 char str[50];
                 s = strtok(s, "~");
@@ -93,7 +96,8 @@ int main(int arg, char* argv[])
                 if(contor == 0)
                     fprintf(out, "Nicio carte gasita.\n");
             }
-            else //caut dupa nume
+	    /* cautare dupa nume */
+            else 
             {
                 TCarte *aux;
                 aux = search_1(head_1, s);
@@ -106,7 +110,7 @@ int main(int arg, char* argv[])
             }
         }
 
-        if(strcmp(p, "list_author") == 0) //list_author <autor> sau list_author <prefix_autor>
+        if(strcmp(p, "list_author") == 0) 
         {
             char *s = malloc(100);
             if(!s) return 0;
@@ -119,7 +123,7 @@ int main(int arg, char* argv[])
             if(s[strlen(s) - 1] == '\r')
                 s[strlen(s) - 1] = '\0';
 
-            if(strchr(s, '~') != 0) //caut dupa prefix
+            if(strchr(s, '~') != 0)
             {
                 char str[50];
                 s = strtok(s, "~");
@@ -130,7 +134,7 @@ int main(int arg, char* argv[])
                 if(contor == 0)
                     fprintf(out, "Niciun autor gasit.\n");
             }
-            else //caut dupa autor
+            else 
             {
                 struct Trie_1 *aux = search_2(head_2, s);
                 char str[50];
@@ -161,7 +165,7 @@ int main(int arg, char* argv[])
                 if(strchr(s, ':') != 0)
                 {
                     s = strtok(s, ":");
-                    struct Trie_1 *aux = search_2(head_2, s); //daca exista autorul in T2
+                    struct Trie_1 *aux = search_2(head_2, s); 
                     if(aux == NULL)
                         fprintf(out, "Autorul %s nu face parte din recomandarile tale.\n", s);
                     else
@@ -196,7 +200,7 @@ int main(int arg, char* argv[])
             else
             {
                 s = strtok(s, ":");
-                struct Trie_1 *aux = search_2(head_2, s); //daca exista autorul in T2
+                struct Trie_1 *aux = search_2(head_2, s); 
 
                 if(aux == NULL)
                     fprintf(out, "Autorul %s nu face parte din recomandarile tale.\n", s);
