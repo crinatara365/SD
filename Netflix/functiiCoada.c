@@ -4,9 +4,9 @@
 
 typedef struct
 { 
-	int ID; //ID-ul serialului
-	char *nume; // numele serialului
-	float rating; //ratingul serialului
+	int ID; 
+	char *nume; 
+	float rating; 
 	int nr_sezoane;
 	TCoada* coada_sezoane;
 }TSerial; 
@@ -38,7 +38,7 @@ int InsQ_vida(void *a, void *ae) //ok
 }
 
 /* inserare in coada nevida */
-int InsQ_nevida(void* a, void *ae) //ok
+int InsQ_nevida(void* a, void *ae) 
 {
 	ACel aux;
 	aux = (ACel)malloc(sizeof(TCel));
@@ -71,12 +71,3 @@ void Afisare_coada(void* a, FILE* output, TF1 af)
 		}
 	}
 } 
-
-
-
-
- 
-
-
-
-
