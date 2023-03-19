@@ -5,7 +5,7 @@
 #include <string.h>
 #include "Trie.h"
 
-/*functie care creeaza nod nou in arborele cu carti*/
+/* functie care creeaza nod nou in arborele cu carti */
 struct Trie_1* Nod_nou_1() 
 {
     struct Trie_1* node = (struct Trie_1*)malloc(sizeof(struct Trie_1));
@@ -20,7 +20,7 @@ struct Trie_1* Nod_nou_1()
     return node;
 }
 
-/*functie care creeaza nod nou in arborele cu autori*/
+/* functie care creeaza nod nou in arborele cu autori */
 struct Trie_2* Nod_nou_2() 
 {
     struct Trie_2* node = (struct Trie_2*)malloc(sizeof(struct Trie_2));
@@ -35,7 +35,7 @@ struct Trie_2* Nod_nou_2()
     return node;
 }
 
-/*functie care insereaza string in arborele de carti*/
+/* functie care insereaza string in arborele de carti */
 void Insert_1(struct Trie_1* head, char* str, TCarte *carte)
 {
     struct Trie_1* current = head;
@@ -48,10 +48,11 @@ void Insert_1(struct Trie_1* head, char* str, TCarte *carte)
         current = current->character[*str-0];
         str++;
     }
-    current->leaf = carte; //ultimului nod i se atribuie pointerul catre structura ce contine informatiile cartii
+    /* ultimului nod i se atribuie pointerul catre structura ce contine informatiile cartii */
+    current->leaf = carte; 
 }
 
-/*functie care insereaza string in arborele de autori*/
+/* functie care insereaza string in arborele de autori */
 void Insert_2(struct Trie_2* head, char* str, struct Trie_1 *p)
 {
     struct Trie_2* current = head;
@@ -64,13 +65,15 @@ void Insert_2(struct Trie_2* head, char* str, struct Trie_1 *p)
         current = current->character[*str-0];
         str++;
     }
-    current->leaf = p; //ultimului nod i se atribuie pointerul catre arborele de carti corespunzator autorului
+    /* ultimului nod i se atribuie pointerul catre arborele de carti corespunzator autorului */
+    current->leaf = p; 
 }
 
 /* returneaza pointerul catre structura de carti (daca gaseste) sau NULL (daca nu gaseste) */
 TCarte* search_1(struct Trie_1* head, char* str) 
 {
-    if(head == NULL) /*daca Trie este gol, returneaza 0*/
+    /*daca Trie este gol, returneaza 0*/
+    if(head == NULL) 
     {   
         printf("trie e gol\n");
         return 0;
@@ -81,7 +84,7 @@ TCarte* search_1(struct Trie_1* head, char* str)
         current = current->character[*str-0];
         if(current == NULL)
             return 0;
-        str++; //move to the next character
+        str++; 
     }
     return current->leaf;
 }
@@ -89,7 +92,8 @@ TCarte* search_1(struct Trie_1* head, char* str)
 /* returneaza pointerul catre structura unui arbore cu cartile corespunzatoare(daca gaseste) sau NULL (altfel) */
 struct Trie_1* search_2(struct Trie_2* head, char* str) 
 {
-    if(head == NULL) /*daca Trie este gol, returneaza 0*/
+     /*daca Trie este gol, returneaza 0*/
+    if(head == NULL)
     {   
         printf("trie e gol\n");
         return 0;
@@ -100,7 +104,7 @@ struct Trie_1* search_2(struct Trie_2* head, char* str)
         current = current->character[*str-0];
         if(current == NULL)
             return 0;
-        str++; //move to the next character
+        str++; 
     }
     return current->leaf;
 }
@@ -117,7 +121,8 @@ void display(struct Trie_1* head, char str[], int level, FILE *out)
     if(head->leaf != NULL)
     {
         str[level] = '\0';
-        if(strlen(str) > 0 && head->leaf->titlu != NULL) //ca sa nu afiseze o linie goala la inceput
+        /* sa nu afiseze o linie goala la inceput */
+        if(strlen(str) > 0 && head->leaf->titlu != NULL) 
             fprintf(out, "%s\n", str);
     }
 
@@ -141,7 +146,7 @@ int display_by_prefix_book(struct Trie_1* head, char str[], int level, FILE *out
     if(head->leaf != NULL)
     {
         str[level] = '\0';
-        if(strlen(str) > 0 && head->leaf->titlu != NULL) //ca sa nu afiseze o linie goala la inceput
+        if(strlen(str) > 0 && head->leaf->titlu != NULL) 
             if(StartsWith(str, prefix) != 0 && (*contor)<3)
             {
                 *contor = (*contor)+1;
@@ -179,7 +184,8 @@ int display_by_prefix_author(struct Trie_2* head, char str[], int level, FILE *o
     if(head->leaf != NULL)
     {
         str[level] = '\0';
-        if(strlen(str) > 0) //ca sa nu afiseze o linie goala la inceput
+        /* sa nu afiseze o linie goala la inceput */
+        if(strlen(str) > 0) 
             if(StartsWith(str, prefix) != 0 && (*contor)<3) 
             {
                 *contor = (*contor)+1;
@@ -197,5 +203,3 @@ int display_by_prefix_author(struct Trie_2* head, char str[], int level, FILE *o
             display_by_prefix_author(head->character[alfabet[i]-0], str, level + 1, out, prefix, contor);
         }
 } 
-
-
